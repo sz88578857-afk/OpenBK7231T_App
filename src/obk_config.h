@@ -745,4 +745,10 @@
 #endif
 
 // closing OBK_CONFIG_H
+
+#define ENABLE_DRIVER_GC0328 1
+#define ENABLE_OSD 1
+#define SD_CARD_BOOT 1
+
 #endif
+
