@@ -1,0 +1,23 @@
+name: Build SD Card Firmware
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y gcc-arm-none-eabi
+      - name: Build firmware
+        run: |
+          python build.py --chip bk7252 --sensor gc0328 --sdcard --osd
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: build/*.img
