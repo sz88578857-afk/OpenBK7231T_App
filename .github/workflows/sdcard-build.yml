@@ -14,11 +14,15 @@ jobs:
       
       - name: Build firmware
         run: |
-          # 针对 SD 卡刷机 + GC0328 摄像头 + OSD 时间戳编译
           make -j$(nproc) TARGET=bk7252 SENSOR=gc0328 SD_CARD=1 ENABLE_OSD=1
       
+      # 关键修改：先列出所有文件，确认路径
+      - name: List build directory
+        run: ls -laR build/
+      
+      # 改成通用路径，只要是.img文件都打包
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: build/bk7252/gc0328/*.img
+          path: "**/*.img"
